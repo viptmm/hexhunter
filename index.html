@@ -1,7 +1,1150 @@
-module.exports = {
-  content: ['./*.html'],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
-};
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HexHunter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="assets/dist/style.css" rel="stylesheet">
+    <link href="assets/style.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&family=REM:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+  </head>
+  <body class="bg-page-bg text-white">
+
+   <!-- Blue light circle -->
+   <div class="absolute -top-40 inset-x-1/2 w-2/3 h-[250px] bg-blue-500/20 blur-3xl rounded-full transform -translate-x-1/2"></div>
+
+    <!-- Header Section -->
+    <header class="p-4 mx-2 relative">
+      <div class="mx-auto flex justify-between items-center">
+        <!-- Logo -->
+        <div class="flex items-center z-50">
+          <svg class="h-8 w-8 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM10 2a6 6 0 1 1 0 12A6 6 0 0 1 10 2z" clip-rule="evenodd" />
+          </svg>
+          <span class="ml-2 font-bold text-lg">HexHunter</span>
+        </div>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex space-x-6 ">
+          <a href="#" class="hover:text-gray-300">Home</a>
+          <a href="#" class="hover:text-gray-300">About</a>
+          <a href="#" class="hover:text-gray-300">Services</a>
+          <a href="#" class="hover:text-gray-300">Contact</a>
+        </nav>
+
+        <!-- Mobile Hamburger Menu -->
+        <button id="hamburger-btn" class="md:hidden text-white focus:outline-none relative  fixed top-0 right-0 z-50">
+          <!-- Menu Icon -->
+          <div id="menu-icon" class="svg-icon h-8 w-8" data-icon-name="menu-icon"></div>
+          <!-- Close Icon -->
+          <div id="close-icon" class="svg-icon h-8 w-8 hidden" data-icon-name="x-icon"></div>
+        </button>
+        
+      </div>
+    </header>
+
+    <!-- Mobile Navigation Menu -->
+    <div id="mobile-nav" class="md:hidden fixed top-0 left-0 w-full h-full bg-gray-900 text-white flex flex-col items-start pt-20 transition-all duration-500 transform -translate-x-full z-40">
+      <nav class="w-full  text-left px-5">
+        <a href="#" class="block py-3 border-b border-line border-dark-4 hover:text-gray-300">Home</a>
+        <a href="#" class="block py-3 border-b border-line border-dark-4 hover:text-gray-300">About</a>
+        <a href="#" class="block py-3 border-b border-line border-dark-4 hover:text-gray-300">Services</a>
+        <a href="#" class="block py-3 border-b border-line border-dark-4 hover:text-gray-300">Contact</a>
+      </nav>
+    </div>
+
+    <!-- Main Content -->
+    <main class="mx-auto p-4 my-10 lg:my-20">
+      <div class="container mx-auto">
+      <h1 class="my-2 text-center text-4xl lg:text-5xl font-extrabold bg-gradient-to-r from-purple-500 via-blue-500 to-teal-400 text-transparent bg-clip-text">Trace Solana Wallets & Tokens</h1>
+      <h2 class="my-2 text-center text-xl lg:text-2xl font-light">Wallet and token info anyone can understand.</h2>
+ <!-- Search Box -->
+ <div class="fixed lg:relative bottom-0 left-0 w-full bg-dark-1 lg:bg-transparent lg:my-10 z-50">
+  <!-- Search Container -->
+  <div id="search-container" class="flex flex-col items-center w-full lg:w-2/4 mx-auto my-4 transition-all duration-500 z-100 ">
+    <!-- Search Box -->
+    <div class="flex items-center bg-dark-2 rounded-full h-[60px] lg:h-[80px] px-4 lg:px-6 w-[95%] lg:w-full relative border border-white/10 backdrop-blur-md hover:backdrop-blur-lg hover:border-white/30 transition duration-500">
+      <!-- Search Icon -->
+      <div class="svg-icon mx-1 lg:mx-4 w-8 h-8 text-gray-500" data-icon-name="search-icon"></div>
+      <!-- Search Input -->
+      <input id="search-input" type="text" placeholder="Search solana wallets or coin addresses"
+  class="flex-grow bg-transparent outline-none text-white placeholder-text1 text-[18px] lg:text-[22px] font-light"
+  onfocus="showRecentSearches(); this.placeholder=''" onblur="hideRecentSearches(); this.placeholder='Search solana wallets or coin addresses'" />
+    </div>
+    <!-- Recent Searches -->
+    <div id="recent-searches" class=" hidden lg:top-[100%] rounded-lg shadow-lg w-[95%] lg:w-full max-h-[300px] overflow-auto p-4 mt-2 lg:mt-2 z-10 bg-dark-1 relative">
+      <!-- Title -->
+      <div class="text-gray-500 text-xs font-semibold mb-2">Recent Searches</div>
+      <!-- Wallet Search Item -->
+      <div class="flex items-center gap-4 p-2 hover:bg-dark-3 rounded-md cursor-pointer transition-all duration-1000">
+        <div class="w-6 h-6 bg-gray-500 rounded-sm flex items-center justify-center">
+          <div class="svg-icon w-4 h-4 text-white" data-icon-name="wallet-icon"></div>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-white text-sm font-medium">0xA1B2C3D4E5...</span>
+          <span class="text-gray-400 text-xs">2 min ago</span>
+        </div>
+      </div>
+      <!-- Coin Search Item -->
+      <div class="flex items-center gap-4 p-2 hover:bg-dark-3 transition-all duration-1000 cursor-pointer">
+        <img src="https://static.coinstats.app/coins/pudgy-penguinshqw.png" alt="Coin Avatar" class="w-6 h-6 rounded-sm">
+        <div class="flex flex-col">
+          <span class="text-white text-sm font-medium">Ethereum (ETH)</span>
+          <span class="text-gray-400 text-xs">5 hours ago</span>
+        </div>
+      </div>
+      <!-- Wallet Search Item -->
+      <div class="flex items-center gap-4 p-2 hover:bg-dark-3 transition-all duration-1000 rounded-md cursor-pointer">
+        <div class="w-6 h-6 bg-gray-500 rounded-sm flex items-center justify-center">
+          <div class="svg-icon w-4 h-4 text-white" data-icon-name="wallet-icon"></div>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-white text-sm font-medium">0xA1B2C3D4E5...</span>
+          <span class="text-gray-400 text-xs">2 min ago</span>
+        </div>
+      </div>
+      <!-- Close Icon (Mobile Only) -->
+      <div  id="close-recent-searches"  class="  bottom-0 left-0 w-full  p-2 flex justify-center">
+      <button class="text-gray-400 hover:bg-dark-3 transition-all duration-1000 rounded-md border-2 border-dark-3 flex items-center justify-center w-full h-8" onclick="hideRecentSearches()">
+        <div class="svg-icon w-6 h-6 text-gray-400" data-icon-name="x-icon"></div>
+      </button>
+      </div>
+    </div>
+  </div>
+  <div class="hidden lg:flex flex-col items-center  ">
+    <div class="flex items-center mt-2">
+      <div class="svg-icon w-5 h-5 text-dark-8 mr-2" data-icon-name="solana-icon"></div>
+      <p class=" text-dark-7 font-light">Works in the Solana Network</p>
+    </div>
+  </div>
+  
+</div>
+
+
+
+
+<!-- Trending-->      
+<section class="trending lg:w-3/4 mx-auto py-10 lg:py-20">
+  <h2 class="text-white text-2xl font-semibold mb-4 text-center lg:text-left">Trending</h2>
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-1 lg:gap-2">
+    <!-- Card 1: Wallet -->
+    <a href="https://google.com" class="bg-dark-2 rounded-md p-4 m-2 hover:bg-dark-1 transition-all duration-1000" onclick="preventLinkRedirect(event)">
+      <div class="flex items-center mb-2">
+        <div class="flex items-center justify-center bg-dark-4 h-6 w-6 rounded-sm">
+          <!-- Wallet Icon -->
+          <div class="svg-icon w-4 h-4 text-white" data-icon-name="wallet-icon"></div>
+        </div>
+        <span class="text-dark-10 text-sm font-light ml-2">Wallet</span>
+      </div>
+      <p class="text-white text-lg font-normal mb-2 truncate overflow-hidden whitespace-nowrap">0x1234...5678</p>
+      <button class="bg-grade-a1 flex items-center justify-between h-8 w-full rounded-sm"data-grade="Low Risk"onclick="openPopup(event, this)">
+        <span class="text-sm text-grade-a1 ml-3">Low Risk</span>
+        <div class="bg-grade-a h-8 w-8 flex items-center justify-center rounded ml-auto">
+          <span class="text-grade-a1 text-sm font-bold">A+</span>
+        </div>
+      </button>
+              <!-- Popup Modal -->
+              <div class="popup-modal fixed inset-0 bg-black bg-opacity-60 hidden flex items-center justify-center z-50">
+                <div class="bg-dark-2 rounded-md p-6 w-5/6 lg:w-1/3">
+                  <div class="bg-grade-a1 flex h-10 px-2 w-full rounded-sm my-4 items-center">
+                    <span class="text-bold text-grade-a1 ml-3">80 Points - Low Risk</span>
+                  </div>
+                  <ul class="text-left space-y-3 mb-6">
+                    <!-- Positive Item -->
+                    <li class="flex items-center">
+                      <div class="svg-icon text-grade-a w-5 h-5 mr-3" data-icon-name="checkmark-icon"></div>
+                      <p> Wallet created >1 year ago:<span class="text-grade-a"> +30 points</span></p>
+                    </li>
+                    <!-- Positive Item -->
+                    <li class="flex items-center">
+                      <div class="svg-icon text-grade-a w-5 h-5 mr-3" data-icon-name="checkmark-icon"></div>
+                      <p>Regular transaction history (consistent, varied activity):<span class="text-grade-a"> +20 points</span></p>
+                    </li>
+                    <!-- Positive Item -->
+                    <li class="flex items-center">
+                      <div class="svg-icon text-grade-a w-5 h-5 mr-3" data-icon-name="checkmark-icon"></div>
+                      <p>Holds a diversified portfolio of established tokens:<span class="text-grade-a">+20 points</span></p>
+                    </li>
+                    <!-- Positive Item -->
+                    <li class="flex items-center">
+                      <div class="svg-icon text-grade-a w-5 h-5 mr-3" data-icon-name="checkmark-icon"></div>
+                      <p>Regular transactions over weeks/months: <span class="text-grade-a">+20 points</span></p>
+                    </li>
+                    <!-- Negative Item -->
+                    <li class="flex items-center">
+                      <div class="svg-icon text-grade-f w-5 h-5 mr-3" data-icon-name="alert-icon"></div>
+                      <p>Engages primarily with suspicious wallets or self-transfers:<span class="text-grade-f">-30 points</span></p>
+                    </li>
+                  </ul>
+                  <div class="flex flex-col space-y-3">
+                    <button class="bg-dark-3 text-white px-4 py-2 rounded hover:bg-dark-4">View Details</button>
+                    <button class="border-solid  border-2 border-dark-3 text-white px-4 py-2 rounded hover:bg-dark-3 close-popup">Close</button>
+                  </div>
+                </div>
+              </div>
+    </a>
+
+    <!-- Card 2: Coin -->
+    <a href="https://google.com" class="bg-[#222125] rounded-md p-4 m-2 hover:bg-dark-1 transition-all duration-1000" onclick="preventLinkRedirect(event)">
+      <div class="flex items-center mb-2">
+        <!-- Coin Avatar -->
+        <img src="https://assets.coingecko.com/coins/images/52622/standard/PUDGY_PENGUINS_PENGU_PFP.png?1733809110" alt="PENGU Coin" class="h-6 w-6 rounded-sm">
+        <span class="text-dark-10 text-sm font-light ml-2">PENGU</span>
+      </div>
+      <div class="relative group">
+        <p class="text-white text-lg font-normal mb-2 truncate overflow-hidden whitespace-nowrap" onclick="toggleTooltip()">Pudgy Penguin Extraordinarily Long Coin Name</p>
+        <!-- Tooltip Long name -->
+        <div class="absolute left-0 bottom-full mb-1 hidden max-w-xs px-4 py-4 text-xs text-white bg-dark-3 rounded shadow-lg group-hover:block">
+          Pudgy Penguin Extraordinarily Long Coin Name
+        </div>
+      </div>
+     
+        <button class="bg-grade-a flex items-center justify-between h-8 w-full rounded-sm"data-grade="Medium Risk"onclick="openPopup(event, this)">
+          <span class="text-sm text-grade-a ml-3">Medium Risk</span>
+          <div class="bg-grade-a h-8 w-8 flex items-center justify-center rounded ml-auto">
+            <span class="text-grade-a text-sm font-bold">A</span>
+          </div>
+        </button>
+        <!-- Popup Modal -->
+        <div class="popup-modal fixed inset-0 bg-black bg-opacity-60 hidden flex items-center justify-center z-50">
+          <div class="bg-dark-2 rounded-md p-6 w-5/6 lg:w-1/3">
+            <div class="bg-grade-a1 flex h-10 px-2 w-full rounded-sm my-4 items-center">
+              <span class="text-bold text-grade-a1 ml-3">80 Points - Medium Risk</span>
+            </div>
+            <ul class="text-left space-y-3 mb-6">
+              <!-- Positive Item -->
+              <li class="flex items-center">
+                <div class="svg-icon text-grade-a w-5 h-5 mr-3" data-icon-name="checkmark-icon"></div>
+                <p> Wallet created >1 year ago:<span class="text-grade-a"> +30 points</span></p>
+              </li>
+              <!-- Positive Item -->
+              <li class="flex items-center">
+                <div class="svg-icon text-grade-a w-5 h-5 mr-3" data-icon-name="checkmark-icon"></div>
+                <p>Regular transaction history (consistent, varied activity):<span class="text-grade-a"> +20 points</span></p>
+              </li>
+              <!-- Positive Item -->
+              <li class="flex items-center">
+                <div class="svg-icon text-grade-a w-5 h-5 mr-3" data-icon-name="checkmark-icon"></div>
+                <p>Holds a diversified portfolio of established tokens:<span class="text-grade-a">+20 points</span></p>
+              </li>
+              <!-- Positive Item -->
+              <li class="flex items-center">
+                <div class="svg-icon text-grade-a w-5 h-5 mr-3" data-icon-name="checkmark-icon"></div>
+                <p>Regular transactions over weeks/months: <span class="text-grade-a">+20 points</span></p>
+              </li>
+              <!-- Negative Item -->
+              <li class="flex items-center">
+                <div class="svg-icon text-grade-f w-5 h-5 mr-3" data-icon-name="alert-icon"></div>
+                <p>Engages primarily with suspicious wallets or self-transfers:<span class="text-grade-f">-30 points</span></p>
+              </li>
+            </ul>
+            <div class="flex flex-col space-y-3">
+              <button class="bg-dark-3 text-white px-4 py-2 rounded hover:bg-dark-4">View Details</button>
+              <button class="border-solid  border-2 border-dark-3 text-white px-4 py-2 rounded hover:bg-dark-3 close-popup">Close</button>
+            </div>
+          </div>
+        </div>
+        
+      
+    </a>
+  <!-- Card 1: Wallet -->
+  <a href="https://google.com" class="bg-dark-2 rounded-md p-4 m-2 hover:bg-dark-1 transition-all duration-1000" onclick="preventLinkRedirect(event)">
+    <div class="flex items-center mb-2">
+      <div class="flex items-center justify-center bg-dark-4 h-6 w-6 rounded-sm">
+        <!-- Wallet Icon -->
+        <div class="svg-icon w-4 h-4 text-white" data-icon-name="wallet-icon"></div>
+      </div>
+      <span class="text-dark-10 text-sm font-light ml-2">Wallet</span>
+    </div>
+    <p class="text-white text-lg font-normal mb-2 truncate overflow-hidden whitespace-nowrap">0x1234...5678</p>
+    <button class="bg-grade-f flex items-center justify-between h-8 w-full rounded-sm"data-grade="Severe Risk"onclick="openPopup(event, this)">
+      <span class="text-sm text-grade-f ml-3">Severe Risk</span>
+      <div class="bg-grade-f h-8 w-8 flex items-center justify-center rounded ml-auto">
+        <span class="text-grade-f text-sm font-bold">F</span>
+      </div>
+    </button>
+            <!-- Popup Modal -->
+            <div class="popup-modal fixed inset-0 bg-black bg-opacity-60 hidden flex items-center justify-center z-50">
+              <div class="bg-dark-2 rounded-md p-6 w-5/6 lg:w-1/3">
+                <div class="bg-grade-f flex h-10 px-2 w-full rounded-sm my-4 items-center">
+                  <span class="text-bold text-grade-f ml-3">-40 Points - Severe Risk</span>
+                </div>
+                <ul class="text-left space-y-3 mb-6">
+                  <!-- Positive Item -->
+                  <li class="flex items-center">
+                    <div class="svg-icon text-grade-a w-5 h-5 mr-3" data-icon-name="checkmark-icon"></div>
+                    <p> Wallet created >1 year ago:<span class="text-grade-a"> +30 points</span></p>
+                  </li>
+                  <!-- Positive Item -->
+                  <li class="flex items-center">
+                    <div class="svg-icon text-grade-a w-5 h-5 mr-3" data-icon-name="checkmark-icon"></div>
+                    <p>Regular transaction history (consistent, varied activity):<span class="text-grade-a"> +20 points</span></p>
+                  </li>
+                  <!-- Positive Item -->
+                  <li class="flex items-center">
+                    <div class="svg-icon text-grade-a w-5 h-5 mr-3" data-icon-name="checkmark-icon"></div>
+                    <p>Holds a diversified portfolio of established tokens:<span class="text-grade-a">+20 points</span></p>
+                  </li>
+                  <!-- Positive Item -->
+                  <li class="flex items-center">
+                    <div class="svg-icon text-grade-a w-5 h-5 mr-3" data-icon-name="checkmark-icon"></div>
+                    <p>Regular transactions over weeks/months: <span class="text-grade-a">+20 points</span></p>
+                  </li>
+                  <!-- Negative Item -->
+                  <li class="flex items-center">
+                    <div class="svg-icon text-grade-f w-5 h-5 mr-3" data-icon-name="alert-icon"></div>
+                    <p>Engages primarily with suspicious wallets or self-transfers:<span class="text-grade-f">-30 points</span></p>
+                  </li>
+                </ul>
+                <div class="flex flex-col space-y-3">
+                  <button class="bg-dark-3 text-white px-4 py-2 rounded hover:bg-dark-4">View Details</button>
+                  <button class="border-solid  border-2 border-dark-3 text-white px-4 py-2 rounded hover:bg-dark-3 close-popup">Close</button>
+                </div>
+              </div>
+            </div>
+  </a>
+
+  <!-- Card 2: Coin -->
+  <a href="https://google.com" class="bg-dark-2 rounded-md p-4 m-2 hover:bg-dark-1 transition-all duration-1000" onclick="preventLinkRedirect(event)">
+    <div class="flex items-center mb-2">
+      <!-- Coin Avatar -->
+      <img src="https://assets.coingecko.com/coins/images/52622/standard/PUDGY_PENGUINS_PENGU_PFP.png?1733809110" alt="PENGU Coin" class="h-6 w-6 rounded-sm">
+      <span class="text-dark-10 text-sm font-light ml-2">PENGU</span>
+    </div>
+    <div class="relative group">
+      <p class="text-white text-lg font-normal mb-2 truncate overflow-hidden whitespace-nowrap" onclick="toggleTooltip()">Alien invasion and bugs bunny</p>
+      <!-- Tooltip Long name -->
+      <div class="absolute left-0 bottom-full mb-1 hidden max-w-xs px-4 py-4 text-xs text-white bg-dark-3 rounded shadow-lg group-hover:block">
+        Alien invasion and bugs bunny
+      </div>
+    </div>
+   
+      <button class="bg-grade-b flex items-center justify-between h-8 w-full rounded-sm"data-grade="Moderate Risk"onclick="openPopup(event, this)">
+        <span class="text-sm text-grade-b ml-3">Moderate Risk</span>
+        <div class="bg-grade-a h-8 w-8 flex items-center justify-center rounded ml-auto">
+          <span class="text-grade-b text-sm font-bold">B</span>
+        </div>
+      </button>
+      <!-- Popup Modal -->
+      <div class="popup-modal fixed inset-0 bg-black bg-opacity-60 hidden flex items-center justify-center z-50">
+        <div class="bg-dark-2 rounded-md p-6 w-5/6 lg:w-1/3">
+          <div class="bg-grade-b flex h-10 px-2 w-full rounded-sm my-4 items-center">
+            <span class="text-bold text-grade-b ml-3">25 Points - Moderate Risk</span>
+          </div>
+          <ul class="text-left space-y-3 mb-6">
+            <!-- Positive Item -->
+            <li class="flex items-center">
+              <div class="svg-icon text-grade-a w-5 h-5 mr-3" data-icon-name="checkmark-icon"></div>
+              <p> Wallet created >1 year ago:<span class="text-grade-a"> +30 points</span></p>
+            </li>
+            <!-- Positive Item -->
+            <li class="flex items-center">
+              <div class="svg-icon text-grade-a w-5 h-5 mr-3" data-icon-name="checkmark-icon"></div>
+              <p>Regular transaction history (consistent, varied activity):<span class="text-grade-a"> +20 points</span></p>
+            </li>
+            <!-- Positive Item -->
+            <li class="flex items-center">
+              <div class="svg-icon text-grade-a w-5 h-5 mr-3" data-icon-name="checkmark-icon"></div>
+              <p>Holds a diversified portfolio of established tokens:<span class="text-grade-a">+20 points</span></p>
+            </li>
+            <!-- Positive Item -->
+            <li class="flex items-center">
+              <div class="svg-icon text-grade-a w-5 h-5 mr-3" data-icon-name="checkmark-icon"></div>
+              <p>Regular transactions over weeks/months: <span class="text-grade-a">+20 points</span></p>
+            </li>
+            <!-- Negative Item -->
+            <li class="flex items-center">
+              <div class="svg-icon text-grade-f w-5 h-5 mr-3" data-icon-name="alert-icon"></div>
+              <p>Engages primarily with suspicious wallets or self-transfers:<span class="text-grade-f">-30 points</span></p>
+            </li>
+          </ul>
+          <div class="flex flex-col space-y-3">
+            <button class="bg-dark-3 text-white px-4 py-2 rounded hover:bg-dark-4">View Details</button>
+            <button class="border-solid  border-2 border-dark-3 text-white px-4 py-2 rounded hover:bg-dark-3 close-popup">Close</button>
+          </div>
+        </div>
+      </div>
+      
+    
+  </a>
+    <!-- Additional Cards can be added here -->
+  </div>
+</section>
+
+      <!-- Latest Alerts Section -->
+      <section class="lg:w-3/4 mx-auto py-10 lg:py-20">
+        <h2 class="text-2xl font-bold mb-6 text-center lg:text-left">Latest Alerts</h2>
+        <div class="space-y-4">
+          <!-- Alert Row -->
+          <a href="#" class="block border-2 border-grade-f/40 hover:border-grade-f transition p-4 rounded-lg flex flex-col lg:flex-row lg:justify-between items-start lg:items-center hover:bg-grade-f transition duration-1000">
+            <!-- Text Section -->
+            <div class="mb-2 lg:mb-0">
+              <!-- Tag + Address -->
+              <div class="flex items-center space-x-2">
+                <!-- Wallet Tag -->
+                <div class="bg-dark-4 text-gray-400 text-xs font-medium rounded-sm px-1 py-1 flex items-center space-x-1">
+                  <div class="svg-icon w-4 h-4 text-white" data-icon-name="wallet-icon"></div>
+                </div>
+                <span class="text-dark-10 text-sm font-light ml-2">Wallet</span>
+                <!-- Wallet Address -->
+                <p class="text-lg font-medium text-dark-8 ">0x123...456</p>
+              </div>
+              <!-- Activity Text -->
+              <p class="font-light text-xl mt-1">Wallet shows suspicious activity</p>
+            </div>
+          
+            <!-- Grade Button -->
+            <button class="bg-grade-f inline-flex lg:flex items-center justify-between h-8 w-full lg:w-auto rounded-sm" data-grade="Severe Risk"onclick="openPopup(event, this)">
+              <span class="text-sm text-grade-f mx-3">Severe Risk</span>
+              <div class="bg-grade-f h-8 w-8 flex items-center justify-center rounded ml-auto">
+              <span class="text-grade-f text-sm font-bold">F</span>
+              </div>
+            </button>
+              <!-- Popup Modal -->
+              <div class="popup-modal fixed inset-0 bg-black bg-opacity-60 hidden flex items-center justify-center z-50">
+                <div class="bg-dark-2 rounded-md p-6 w-5/6 lg:w-1/3">
+                  <div class="bg-grade-f flex h-10 px-2 w-full rounded-sm my-4 items-center">
+                    <span class="text-bold text-grade-f ml-3">-40 Points - Severe Risk</span>
+                  </div>
+                  <ul class="text-left space-y-3 mb-6">
+                    <!-- Positive Item -->
+                    <li class="flex items-center">
+                      <div class="svg-icon text-grade-a w-5 h-5 mr-3" data-icon-name="checkmark-icon"></div>
+                      <p> Wallet created >1 year ago:<span class="text-grade-a"> +30 points</span></p>
+                    </li>
+                    <!-- Positive Item -->
+                    <li class="flex items-center">
+                      <div class="svg-icon text-grade-a w-5 h-5 mr-3" data-icon-name="checkmark-icon"></div>
+                      <p>Regular transaction history (consistent, varied activity):<span class="text-grade-a"> +20 points</span></p>
+                    </li>
+                    <!-- Positive Item -->
+                    <li class="flex items-center">
+                      <div class="svg-icon text-grade-a w-5 h-5 mr-3" data-icon-name="checkmark-icon"></div>
+                      <p>Holds a diversified portfolio of established tokens:<span class="text-grade-a">+20 points</span></p>
+                    </li>
+                    <!-- Positive Item -->
+                    <li class="flex items-center">
+                      <div class="svg-icon text-grade-a w-5 h-5 mr-3" data-icon-name="checkmark-icon"></div>
+                      <p>Regular transactions over weeks/months: <span class="text-grade-a">+20 points</span></p>
+                    </li>
+                    <!-- Negative Item -->
+                    <li class="flex items-center">
+                      <div class="svg-icon text-grade-f w-5 h-5 mr-3" data-icon-name="alert-icon"></div>
+                      <p>Engages primarily with suspicious wallets or self-transfers:<span class="text-grade-f">-30 points</span></p>
+                    </li>
+                  </ul>
+                  <div class="flex flex-col space-y-3">
+                    <button class="bg-dark-3 text-white px-4 py-2 rounded hover:bg-dark-4">View Details</button>
+                    <button class="border-solid  border-2 border-dark-3 text-white px-4 py-2 rounded hover:bg-dark-3 close-popup">Close</button>
+                  </div>
+                </div>
+              </div>
+          </a>
+      
+          <!-- Second alert item -->
+          <a href="#" class="block border-2 border-grade-d/40 hover:border-grade-d transition p-4 rounded-lg flex flex-col lg:flex-row lg:justify-between items-start lg:items-center hover:bg-grade-d duration-1000">
+            <!-- Text Section -->
+            <div class="mb-2 lg:mb-0">
+              <!-- Tag + Address -->
+              <div class="flex items-center space-x-2">
+                  <!-- Coin Avatar -->
+                  <img src="https://assets.coingecko.com/coins/images/52622/standard/PUDGY_PENGUINS_PENGU_PFP.png?1733809110" alt="PENGU Coin" class="h-6 w-6 rounded-sm">
+                  <span class="text-dark-10 text-sm font-light ml-2">PENGU</span>
+                <!-- Coin Name -->
+                <p class="text-lg font-medium text-dark-8">Pudgy Penguins are something else</p>
+              </div>
+              <!-- Activity Text -->
+              <p class="font-light text-xl  mt-1">Trading dilluation activity 🤖</p>
+            </div>
+          
+            <!-- Grade Button -->
+            <button class="bg-grade-d inline-flex lg:flex items-center justify-between h-8 w-full lg:w-auto rounded-sm" data-grade="Severe Risk"onclick="openPopup(event, this)">
+              <span class="text-sm text-grade-d mx-3">High Risk</span>
+              <div class="bg-grade-d h-8 w-8 flex items-center justify-center rounded ml-auto">
+              <span class="text-grade-d text-sm font-bold">D</span>
+              </div>
+            </button>
+              <!-- Popup Modal -->
+              <div class="popup-modal fixed inset-0 bg-black bg-opacity-60 hidden flex items-center justify-center z-50">
+                <div class="bg-dark-2 rounded-md p-6 w-5/6 lg:w-1/3">
+                  <div class="bg-grade-d flex h-10 px-2 w-full rounded-sm my-4 items-center">
+                    <span class="text-bold text-grade-d ml-3">-40 Points - High Risk</span>
+                  </div>
+                  <ul class="text-left space-y-3 mb-6">
+                    <!-- Positive Item -->
+                    <li class="flex items-center">
+                      <div class="svg-icon text-grade-a w-5 h-5 mr-3" data-icon-name="checkmark-icon"></div>
+                      <p> Wallet created >1 year ago:<span class="text-grade-a"> +30 points</span></p>
+                    </li>
+                    <!-- Positive Item -->
+                    <li class="flex items-center">
+                      <div class="svg-icon text-grade-a w-5 h-5 mr-3" data-icon-name="checkmark-icon"></div>
+                      <p>Regular transaction history (consistent, varied activity):<span class="text-grade-a"> +20 points</span></p>
+                    </li>
+                    <!-- Positive Item -->
+                    <li class="flex items-center">
+                      <div class="svg-icon text-grade-a w-5 h-5 mr-3" data-icon-name="checkmark-icon"></div>
+                      <p>Holds a diversified portfolio of established tokens:<span class="text-grade-a">+20 points</span></p>
+                    </li>
+                    <!-- Positive Item -->
+                    <li class="flex items-center">
+                      <div class="svg-icon text-grade-a w-5 h-5 mr-3" data-icon-name="checkmark-icon"></div>
+                      <p>Regular transactions over weeks/months: <span class="text-grade-a">+20 points</span></p>
+                    </li>
+                    <!-- Negative Item -->
+                    <li class="flex items-center">
+                      <div class="svg-icon text-grade-f w-5 h-5 mr-3" data-icon-name="alert-icon"></div>
+                      <p>Engages primarily with suspicious wallets or self-transfers:<span class="text-grade-f">-30 points</span></p>
+                    </li>
+                  </ul>
+                  <div class="flex flex-col space-y-3">
+                    <button class="bg-dark-3 text-white px-4 py-2 rounded hover:bg-dark-4">View Details</button>
+                    <button class="border-solid  border-2 border-dark-3 text-white px-4 py-2 rounded hover:bg-dark-3 close-popup">Close</button>
+                  </div>
+                </div>
+              </div>
+          </a>
+          <a href="#" class="block border-2 border-grade-f/40 hover:border-grade-f transition p-4 rounded-lg flex flex-col lg:flex-row lg:justify-between items-start lg:items-center hover:bg-grade-f duration-1000">
+            <!-- Text Section -->
+            <div class="mb-2 lg:mb-0">
+              <!-- Tag + Address -->
+              <div class="flex items-center space-x-2">
+                <!-- Wallet Tag -->
+                <div class="bg-dark-4 text-gray-400 text-xs font-medium rounded-sm px-1 py-1 flex items-center space-x-1">
+                  <div class="svg-icon w-4 h-4 text-white" data-icon-name="wallet-icon"></div>
+                </div>
+                <span class="text-dark-10 text-sm font-light ml-2">Wallet</span>
+                <!-- Wallet Address -->
+                <p class="text-lg font-medium text-dark-8">0x123...456</p>
+              </div>
+              <!-- Activity Text -->
+              <p class="font-light text-xl  mt-1">Coin shows suspicious activity &#128128;</p>
+            </div>
+          
+            <!-- Grade Button -->
+            <button class="bg-grade-f inline-flex lg:flex items-center justify-between h-8 w-full lg:w-auto rounded-sm" data-grade="Severe Risk"onclick="openPopup(event, this)">
+              <span class="text-sm text-grade-f mx-3">Severe Risk</span>
+              <div class="bg-grade-f h-8 w-8 flex items-center justify-center rounded ml-auto">
+              <span class="text-grade-f text-sm font-bold">F</span>
+              </div>
+            </button>
+              <!-- Popup Modal -->
+              <div class="popup-modal fixed inset-0 bg-black bg-opacity-60 hidden flex items-center justify-center z-50">
+                <div class="bg-dark-2 rounded-md p-6 w-5/6 lg:w-1/3">
+                  <div class="bg-grade-f flex h-10 px-2 w-full rounded-sm my-4 items-center">
+                    <span class="text-bold text-grade-f ml-3">-40 Points - Severe Risk</span>
+                  </div>
+                  <ul class="text-left space-y-3 mb-6">
+                    <!-- Positive Item -->
+                    <li class="flex items-center">
+                      <div class="svg-icon text-grade-a w-5 h-5 mr-3" data-icon-name="checkmark-icon"></div>
+                      <p> Wallet created >1 year ago:<span class="text-grade-a"> +30 points</span></p>
+                    </li>
+                    <!-- Positive Item -->
+                    <li class="flex items-center">
+                      <div class="svg-icon text-grade-a w-5 h-5 mr-3" data-icon-name="checkmark-icon"></div>
+                      <p>Regular transaction history (consistent, varied activity):<span class="text-grade-a"> +20 points</span></p>
+                    </li>
+                    <!-- Positive Item -->
+                    <li class="flex items-center">
+                      <div class="svg-icon text-grade-a w-5 h-5 mr-3" data-icon-name="checkmark-icon"></div>
+                      <p>Holds a diversified portfolio of established tokens:<span class="text-grade-a">+20 points</span></p>
+                    </li>
+                    <!-- Positive Item -->
+                    <li class="flex items-center">
+                      <div class="svg-icon text-grade-a w-5 h-5 mr-3" data-icon-name="checkmark-icon"></div>
+                      <p>Regular transactions over weeks/months: <span class="text-grade-a">+20 points</span></p>
+                    </li>
+                    <!-- Negative Item -->
+                    <li class="flex items-center">
+                      <div class="svg-icon text-grade-f w-5 h-5 mr-3" data-icon-name="alert-icon"></div>
+                      <p>Engages primarily with suspicious wallets or self-transfers:<span class="text-grade-f">-30 points</span></p>
+                    </li>
+                  </ul>
+                  <div class="flex flex-col space-y-3">
+                    <button class="bg-dark-3 text-white px-4 py-2 rounded hover:bg-dark-4">View Details</button>
+                    <button class="border-solid  border-2 border-dark-3 text-white px-4 py-2 rounded hover:bg-dark-3 close-popup">Close</button>
+                  </div>
+                </div>
+              </div>
+          </a>
+          
+        </div>
+      </section>
+
+      <!-- Top Records Section -->
+<section class="lg:w-3/4 mx-auto py-10 lg:py-20">
+  <div class="container mx-auto ">
+    <!-- Section Title -->
+    <h2 class="text-2xl text-center lg:text-left font-bold text-white mb-6">Highlights: Top 3</h2>
+
+<!-- Tabs -->
+<div class="text-center lg:text-left space-x-2 mb-6 border-b border-white/10">
+  <button class="wallets-tab text-white font-medium pb-2 border-b-2 border-blue-500  px-3 py-2 ">Wallets</button>
+  <button class="coins-tab text-gray-400 hover:text-white pb-2 py-2 px-3 ">Coins</button>
+</div>
+
+    <!-- Wallets Content (Active by Default) -->
+    <div id="wallets-content" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="">
+        <span class="text-lg text-center lg:text-left font-semibold text-white">Wealthiest Ever Searched</span>
+
+  <!-- rank #1 item -->
+   <a href="#premium-content">
+        <div class="bg-dark-2 p-4 rounded-lg my-4 hover:bg-dark-1 transition-all duration-1000">
+          <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center space-x-2">
+              <span class="text-2xl font-light bg-dark-4 px-1 py-1 rounded-full">🥇</span>
+              <div class="svg-icon w-4 h-4 text-white" data-icon-name="wallet-icon"></div>
+              <p class="text-lg text-dark-8">0x123...456</p>
+            </div>
+            <div class="flex items-center bg-grade-a1 w-6 h-6 rounded-md justify-center">
+              <span class="text-grade-a1 text-sm font-bold">A+</span>
+            </div>
+          </div>
+          <!-- Balance -->
+          <p class="text-lg font-medium mb-1">Balance: $55,442,060 🤑</p>
+          <!-- Date -->
+          <p class="text-sm text-dark-8">December 24, 2024</p>
+        </div>
+      </a>
+        <!-- rank #2 item -->
+   <a href="#premium-content">
+    <div class="bg-dark-2 p-4 rounded-lg my-4 hover:bg-dark-1 transition-all duration-1000">
+      <div class="flex items-center justify-between mb-2">
+        <div class="flex items-center space-x-2">
+          <span class="text-2xl px-1 py-1 border-2 border-dark-5 rounded-full">🥈</span>
+          <div class="svg-icon w-4 h-4 text-white" data-icon-name="wallet-icon"></div>
+          <p class="text-lg text-dark-8">0x123...456</p>
+        </div>
+        <div class="flex items-center bg-grade-a w-6 h-6 rounded-md justify-center">
+          <span class="text-grade-a text-sm font-bold">A</span>
+        </div>
+      </div>
+      <!-- Balance -->
+      <p class="text-lg mb-1">Balance: $4,344,244 💰</p>
+      <!-- Date -->
+      <p class="text-sm text-dark-8">January 13, 2025</p>
+    </div>
+  </a>
+          <!-- rank #3 item -->
+          <a href="#premium-content">
+            <div class="bg-dark-2 p-4 rounded-lg my-4 hover:bg-dark-1 transition-all duration-1000">
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center space-x-2">
+                  <span class="text-2xl px-1 py-1 border-2 border-dark-5 rounded-full">🥉</span>
+                  <div class="svg-icon w-4 h-4 text-white" data-icon-name="wallet-icon"></div>
+                  <p class="text-lg text-dark-8">0x123...456</p>
+                </div>
+                <div class="flex items-center bg-grade-a w-6 h-6 rounded-md justify-center">
+                  <span class="text-grade-a text-sm font-bold">A</span>
+                </div>
+              </div>
+              <!-- Balance -->
+              <p class="text-lg mb-1">Balance: $1,217,410 💵</p>
+              <!-- Date -->
+              <p class="text-sm text-dark-8">January 3, 2025</p>
+            </div>
+          </a>
+        
+        
+      </div>
+      <div class="">
+        <span class="text-center lg:text-left text-lg font-semibold text-white">Most Transactions</span>
+
+         <!-- rank #1 item -->
+   <a href="#premium-content">
+    <div class="bg-dark-2 p-4 rounded-lg my-4 hover:bg-dark-1 transition-all duration-1000">
+      <div class="flex items-center justify-between mb-2">
+        <div class="flex items-center space-x-2">
+          <span class="text-2xl font-light bg-dark-4 px-1 py-1 rounded-full">🥇</span>
+          <div class="svg-icon w-4 h-4 text-white" data-icon-name="wallet-icon"></div>
+          <p class="text-lg text-dark-8">0x123...456</p>
+        </div>
+        <div class="flex items-center bg-grade-f w-6 h-6 rounded-md justify-center">
+          <span class="text-grade-f text-sm font-bold">B</span>
+        </div>
+      </div>
+      <!-- Balance -->
+      <p class="text-lg font-medium mb-1">23,060 transactions 👽</p>
+      <!-- Date -->
+      <p class="text-sm text-dark-8">December 24, 2024</p>
+    </div>
+  </a>
+    <!-- rank #2 item -->
+<a href="#premium-content">
+<div class="bg-dark-2 p-4 rounded-lg my-4 hover:bg-dark-1 transition-all duration-1000">
+  <div class="flex items-center justify-between mb-2">
+    <div class="flex items-center space-x-2">
+      <span class="text-2xl px-1 py-1 border-2 border-dark-5 rounded-full">🥈</span>
+      <div class="svg-icon w-4 h-4 text-white" data-icon-name="wallet-icon"></div>
+      <p class="text-lg text-dark-8">0x123...456</p>
+    </div>
+    <div class="flex items-center bg-grade-a w-6 h-6 rounded-md justify-center">
+      <span class="text-grade-a text-sm font-bold">A</span>
+    </div>
+  </div>
+  <!-- Balance -->
+  <p class="text-lg mb-1">14,244 transactions 🙀</p>
+  <!-- Date -->
+  <p class="text-sm text-dark-8">December 6, 2025</p>
+</div>
+</a>
+      <!-- rank #3 item -->
+      <a href="#premium-content">
+        <div class="bg-dark-2 p-4 rounded-lg my-4 hover:bg-dark-1 transition-all duration-1000">
+          <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center space-x-2">
+              <span class="text-2xl px-1 py-1 border-2 border-dark-5 rounded-full">🥉</span>
+              <div class="svg-icon w-4 h-4 text-white" data-icon-name="wallet-icon"></div>
+              <p class="text-lg text-dark-8">0x123...456</p>
+            </div>
+            <div class="flex items-center bg-grade-a w-6 h-6 rounded-md justify-center">
+              <span class="text-grade-a text-sm font-bold">A</span>
+            </div>
+          </div>
+          <!-- Balance -->
+          <p class="text-lg mb-1">10,410 transactions 🙈</p>
+          <!-- Date -->
+          <p class="text-sm text-dark-8">January 15, 2025</p>
+        </div>
+      </a>
+      </div>
+      <div class="">
+        <span class="text-center lg:text-left text-lg font-semibold text-white">Largest Transaction</span>
+        <a href="#premium-content">
+          <div class="bg-dark-2 p-4 rounded-lg my-4 hover:bg-dark-1 transition-all duration-1000">
+            <div class="flex items-center justify-between mb-2">
+              <div class="flex items-center space-x-2">
+                <span class="text-2xl font-light bg-dark-4 px-1 py-1 rounded-full">🥇</span>
+                <div class="svg-icon w-4 h-4 text-white" data-icon-name="wallet-icon"></div>
+                <p class="text-lg text-dark-8">0x123...456</p>
+              </div>
+              <div class="flex items-center bg-grade-d w-6 h-6 rounded-md justify-center">
+                <span class="text-grade-d text-sm font-bold">D</span>
+              </div>
+            </div>
+            <!-- Balance -->
+            <div class="flex" >
+              <div class="svg-icon w-5 h-5 mt-1 mr-1 text-grade-a1" data-icon-name="arrow-in-icon"></div> <p class="text-lg mb-1 pr-2"><span class="text-grade-a1">Recevied +</span> 10 SOL</p><div class="svg-icon w-5 h-5 mt-1 mr-2 " data-icon-name="solana-color-icon"></div><span class="text-dark-8">($10,000,00)</span>
+          </div>
+            <!-- Date -->
+            <p class="text-sm text-dark-8">December 24, 2024</p>
+          </div>
+        </a>
+          <!-- rank #2 item -->
+      <a href="#premium-content">
+      <div class="bg-dark-2 p-4 rounded-lg my-4 hover:bg-dark-1 transition-all duration-1000">
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center space-x-2">
+            <span class="text-2xl px-1 py-1 border-2 border-dark-5 rounded-full">🥈</span>
+            <div class="svg-icon w-4 h-4 text-white" data-icon-name="wallet-icon"></div>
+            <p class="text-lg text-dark-8">0x123...456</p>
+          </div>
+          <div class="flex items-center bg-grade-a w-6 h-6 rounded-md justify-center">
+            <span class="text-grade-a text-sm font-bold">A</span>
+          </div>
+        </div>
+        <!-- Balance -->
+        <div class="flex" >
+          <div class="svg-icon w-5 h-5 mt-1 mr-1 text-grade-f" data-icon-name="arrow-out-icon"></div> <p class="text-lg mb-1 pr-2"><span class="text-grade-f">Sent -</span> 10 SOL</p><div class="svg-icon w-5 h-5 mt-1 mr-2 " data-icon-name="solana-color-icon"></div><span class="text-dark-8">($10,000,00)</span>
+      </div>
+        <!-- Date -->
+        <p class="text-sm text-dark-8">December 6, 2025</p>
+      </div>
+      </a>
+            <!-- rank #3 item -->
+            <a href="#premium-content">
+              <div class="bg-dark-2 p-4 rounded-lg my-4 hover:bg-dark-1 transition-all duration-1000">
+                <div class="flex items-center justify-between mb-2">
+                  <div class="flex items-center space-x-2">
+                    <span class="text-2xl px-1 py-1 border-2 border-dark-5 rounded-full">🥉</span>
+                    <div class="svg-icon w-4 h-4 text-white" data-icon-name="wallet-icon"></div>
+                    <p class="text-lg text-dark-8">0x123...456</p>
+                  </div>
+                  <div class="flex items-center bg-grade-a1 w-6 h-6 rounded-md justify-center">
+                    <span class="text-grade-a1 text-sm font-bold">A+</span>
+                  </div>
+                </div>
+                <!-- Balance -->
+                 <div class="flex" >
+                  <div class="svg-icon w-5 h-5 mt-1 mr-1 text-grade-a1" data-icon-name="arrow-in-icon"></div> <p class="text-lg mb-1 pr-2"><span class="text-grade-a1">Recevied +</span> 10 SOL</p><div class="svg-icon w-5 h-5 mt-1 mr-2 " data-icon-name="solana-color-icon"></div><span class="text-dark-8">($10,000,00)</span>
+              </div>
+                <!-- Date -->
+                <p class="text-sm text-dark-8">January 15, 2025</p>
+              </div>
+            </a>
+        
+      </div>
+    </div>
+
+    <!-- Coins Content (Hidden by Default) -->
+    <div id="coins-content" class="grid grid-cols-1 md:grid-cols-3 gap-4 hidden">
+      <div class="">
+        <span class="text-lg font-semibold text-white text-center lg:text-left">Most Popular Ever</span>
+
+            <!-- rank #1 item -->
+   <a href="#">
+    <div class="bg-dark-2 p-4 rounded-lg my-4 hover:bg-dark-1 transition-all duration-1000">
+      <div class="flex items-center justify-between mb-2">
+        <div class="flex items-center space-x-2">
+          <span class="text-2xl font-light bg-dark-4 px-1 py-1 rounded-full">🥇</span>
+          <img src="https://static.coinstats.app/coins/pudgy-penguinshqw.png" alt="Coin Avatar" class="w-6 h-6 rounded-sm">
+          <p class="text-lg text-dark-8">Pudgy Penguins</p>
+        </div>
+        <div class="flex items-center bg-grade-f w-6 h-6 rounded-md justify-center">
+          <span class="text-grade-f text-sm font-bold">B</span>
+        </div>
+      </div>
+      <!-- Balance -->
+      <p class="text-lg font-medium mb-1">1,060 Searches 🏆</p>
+      <!-- Date -->
+      <p class="text-sm text-dark-8">Since december 24, 2024</p>
+    </div>
+  </a>
+    <!-- rank #2 item -->
+    <a href="#">
+      <div class="bg-dark-2 p-4 rounded-lg my-4 hover:bg-dark-1 transition-all duration-1000">
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center space-x-2">
+            <span class="text-2xl font-light border-2 border-dark-5 px-1 py-1 rounded-full">🥈</span>
+            <img src="https://static.coinstats.app/coins/pudgy-penguinshqw.png" alt="Coin Avatar" class="w-6 h-6 rounded-sm">
+            <p class="text-lg text-dark-8">Pudgy Penguins</p>
+          </div>
+          <div class="flex items-center bg-grade-d w-6 h-6 rounded-md justify-center">
+            <span class="text-grade-d text-sm font-bold">D</span>
+          </div>
+        </div>
+        <!-- Balance -->
+        <p class="text-lg font-medium mb-1">1,060 Searches 🔥</p>
+        <!-- Date -->
+        <p class="text-sm text-dark-8">Since december 24, 2024</p>
+      </div>
+    </a>
+      <!-- rank #3 item -->
+      <a href="#">
+        <div class="bg-dark-2 p-4 rounded-lg my-4 hover:bg-dark-1 transition-all duration-1000">
+          <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center space-x-2">
+              <span class="text-2xl font-light border-2 border-dark-5 px-1 py-1 rounded-full">🥉</span>
+              <img src="https://static.coinstats.app/coins/pudgy-penguinshqw.png" alt="Coin Avatar" class="w-6 h-6 rounded-sm">
+              <p class="text-lg text-dark-8">Pudgy Penguins</p>
+            </div>
+            <div class="flex items-center bg-grade-d w-6 h-6 rounded-md justify-center">
+              <span class="text-grade-d text-sm font-bold">D</span>
+            </div>
+          </div>
+          <!-- Balance -->
+          <p class="text-lg font-medium mb-1">1,060 Searches 🚀</p>
+          <!-- Date -->
+          <p class="text-sm text-dark-8">Since december 24, 2024</p>
+        </div>
+      </a>
+      </div>
+      <div class="">
+        <span class="text-lg font-semibold text-white text-center lg:text-left">Highest Trading Volume</span>
+        <a href="#">
+          <div class="bg-dark-2 p-4 rounded-lg my-4 hover:bg-dark-1 transition-all duration-1000">
+            <div class="flex items-center justify-between mb-2">
+              <div class="flex items-center space-x-2">
+                <span class="text-2xl font-light bg-dark-4 px-1 py-1 rounded-full">🥇</span>
+                <img src="https://static.coinstats.app/coins/pudgy-penguinshqw.png" alt="Coin Avatar" class="w-6 h-6 rounded-sm">
+                <p class="text-lg text-dark-8">Pudgy Penguins</p>
+              </div>
+              <div class="flex items-center bg-grade-b w-6 h-6 rounded-md justify-center">
+                <span class="text-grade-b text-sm font-bold">B</span>
+              </div>
+            </div>
+            <!-- Balance -->
+            <p class="text-lg font-medium mb-1">Volume: $5,000,000,000 💹</p>
+            <!-- Date -->
+            <p class="text-sm text-dark-8">December 24, 2024</p>
+          </div>
+        </a>
+          <!-- rank #2 item -->
+          <a href="#">
+            <div class="bg-dark-2 p-4 rounded-lg my-4 hover:bg-dark-1 transition-all duration-1000">
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center space-x-2">
+                  <span class="text-2xl font-light border-2 border-dark-5 px-1 py-1 rounded-full">🥈</span>
+                  <img src="https://static.coinstats.app/coins/pudgy-penguinshqw.png" alt="Coin Avatar" class="w-6 h-6 rounded-sm">
+                  <p class="text-lg text-dark-8">Pudgy Penguins</p>
+                </div>
+                <div class="flex items-center bg-grade-f w-6 h-6 rounded-md justify-center">
+                  <span class="text-grade-f text-sm font-bold">F</span>
+                </div>
+              </div>
+              <!-- Balance -->
+              <p class="text-lg font-medium mb-1">Volume: $5,000,000,000 📈</p>
+              <!-- Date -->
+              <p class="text-sm text-dark-8">December 24, 2024</p>
+            </div>
+          </a>
+            <!-- rank #3 item -->
+            <a href="#">
+              <div class="bg-dark-2 p-4 rounded-lg my-4 hover:bg-dark-1 transition-all duration-1000">
+                <div class="flex items-center justify-between mb-2">
+                  <div class="flex items-center space-x-2">
+                    <span class="text-2xl font-light border-2 border-dark-5 px-1 py-1 rounded-full">🥉</span>
+                    <img src="https://static.coinstats.app/coins/pudgy-penguinshqw.png" alt="Coin Avatar" class="w-6 h-6 rounded-sm">
+                    <p class="text-lg text-dark-8">Pudgy Penguins</p>
+                  </div>
+                  <div class="flex items-center bg-grade-f w-6 h-6 rounded-md justify-center">
+                    <span class="text-grade-f text-sm font-bold">F</span>
+                  </div>
+                </div>
+                <!-- Balance -->
+                <p class="text-lg font-medium mb-1">Volume: $5,000,000,000 📊</p>
+                <!-- Date -->
+                <p class="text-sm text-dark-8">December 24, 2024</p>
+              </div>
+            </a>
+      </div>
+      <div class="">
+        <span class="text-lg font-semibold text-white text-center lg:text-left">Highest Market Cap</span>
+        <a href="#">
+          <div class="bg-dark-2 p-4 rounded-lg my-4 hover:bg-dark-1 transition-all duration-1000">
+            <div class="flex items-center justify-between mb-2">
+              <div class="flex items-center space-x-2">
+                <span class="text-2xl font-light bg-dark-4 px-1 py-1 rounded-full">🥇</span>
+                <img src="https://static.coinstats.app/coins/pudgy-penguinshqw.png" alt="Coin Avatar" class="w-6 h-6 rounded-sm">
+                <p class="text-lg text-dark-8">Pudgy Penguins</p>
+              </div>
+              <div class="flex items-center bg-grade-b w-6 h-6 rounded-md justify-center">
+                <span class="text-grade-b text-sm font-bold">B</span>
+              </div>
+            </div>
+            <!-- Balance -->
+            <p class="text-lg font-medium mb-1">Market Cap: $20,000,000,000 💹</p>
+            <!-- Date -->
+            <p class="text-sm text-dark-8">December 24, 2024</p>
+          </div>
+        </a>
+          <!-- rank #2 item -->
+          <a href="#">
+            <div class="bg-dark-2 p-4 rounded-lg my-4 hover:bg-dark-1 transition-all duration-1000">
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center space-x-2">
+                  <span class="text-2xl font-light border-2 border-dark-5 px-1 py-1 rounded-full">🥈</span>
+                  <img src="https://static.coinstats.app/coins/pudgy-penguinshqw.png" alt="Coin Avatar" class="w-6 h-6 rounded-sm">
+                  <p class="text-lg text-dark-8">Pudgy Penguins</p>
+                </div>
+                <div class="flex items-center bg-grade-f w-6 h-6 rounded-md justify-center">
+                  <span class="text-grade-f text-sm font-bold">F</span>
+                </div>
+              </div>
+              <!-- Balance -->
+              <p class="text-lg font-medium mb-1">Market Cap: $20,000,000,000 📈</p>
+              <!-- Date -->
+              <p class="text-sm text-dark-8">December 24, 2024</p>
+            </div>
+          </a>
+            <!-- rank #3 item -->
+            <a href="#">
+              <div class="bg-dark-2 p-4 rounded-lg my-4 hover:bg-dark-1 transition-all duration-1000">
+                <div class="flex items-center justify-between mb-2">
+                  <div class="flex items-center space-x-2">
+                    <span class="text-2xl font-light border-2 border-dark-5 px-1 py-1 rounded-full">🥉</span>
+                    <img src="https://static.coinstats.app/coins/pudgy-penguinshqw.png" alt="Coin Avatar" class="w-6 h-6 rounded-sm">
+                    <p class="text-lg text-dark-8">Pudgy Penguins</p>
+                  </div>
+                  <div class="flex items-center bg-grade-f w-6 h-6 rounded-md justify-center">
+                    <span class="text-grade-f text-sm font-bold">F</span>
+                  </div>
+                </div>
+                <!-- Balance -->
+                <p class="text-lg font-medium mb-1">Market Cap: $20,000,000,000 📊</p>
+                <!-- Date -->
+                <p class="text-sm text-dark-8">December 24, 2024</p>
+              </div>
+            </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+        </div>
+      </div>
+
+
+      
+
+      
+      
+      
+    </div>
+    </main>
+
+    <script>
+      const hamburgerBtn = document.getElementById('hamburger-btn');
+      const menuIcon = document.getElementById('menu-icon');
+      const closeIcon = document.getElementById('close-icon');
+      const mobileNav = document.getElementById('mobile-nav');
+    
+      // Add an event listener to toggle the navigation visibility and icons
+      hamburgerBtn.addEventListener('click', () => {
+        // Toggle mobile nav visibility and translation
+        mobileNav.classList.toggle('-translate-x-full');
+        mobileNav.classList.toggle('translate-x-0');
+    
+        // Toggle between menu icon and close icon
+        menuIcon.classList.toggle('hidden');
+        closeIcon.classList.toggle('hidden');
+      });
+    
+      // Close the mobile nav when clicking outside the links
+      mobileNav.addEventListener('click', (e) => {
+        if (e.target !== e.currentTarget) return; // Click outside the links to close the nav
+        mobileNav.classList.add('-translate-x-full');
+        mobileNav.classList.remove('translate-x-0');
+        menuIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+      });
+    </script>
+    
+ <script>
+    // svg grab
+    document.addEventListener("DOMContentLoaded", () => {
+  const icons = document.querySelectorAll('.svg-icon');
+
+  icons.forEach(icon => {
+    const iconName = icon.getAttribute('data-icon-name');
+    const iconPath = `assets/icons/${iconName}.svg`;
+
+    fetch(iconPath)
+      .then(response => response.text())
+      .then(svgContent => {
+        // Inject the SVG content into the div
+        icon.innerHTML = svgContent;
+
+        // Select the injected SVG element
+        const svgElement = icon.querySelector('svg');
+
+        if (svgElement) {
+          // Remove width and height attributes from the SVG to respect TailwindCSS classes
+          svgElement.removeAttribute('width');
+          svgElement.removeAttribute('height');
+
+          // Ensure the SVG scales based on TailwindCSS classes
+          svgElement.setAttribute('width', '100%');
+          svgElement.setAttribute('height', '100%');
+          svgElement.setAttribute('viewBox', svgElement.getAttribute('viewBox') || '0 0 24 24');
+          svgElement.classList.add('w-full', 'h-full');
+        }
+
+        // Update color dynamically to use currentColor
+        const paths = icon.querySelectorAll('path, circle, rect, line, polyline, polygon');
+        paths.forEach(path => {
+          path.setAttribute('stroke', 'currentColor');
+          path.setAttribute('fill', 'none'); // Keep it as an outline
+        });
+      })
+      .catch(error => console.error(`Error loading icon: ${iconName}`, error));
+  });
+});
+
+</script>
+
+<script>
+  //recent searches dropdown
+  function showRecentSearches() {
+    const recentSearches = document.getElementById('recent-searches');
+    recentSearches.classList.remove('hidden'); // Show the recent searches
+  }
+  
+  function hideRecentSearches() {
+    const recentSearches = document.getElementById('recent-searches');
+    recentSearches.classList.add('hidden'); // Hide the recent searches
+  }
+  </script>
+  <script>
+    //click toggle long name tooltip on mobile
+    function toggleTooltip() {
+      const tooltip = document.getElementById('tooltip');
+      tooltip.classList.toggle('hidden');
+    }
+  </script>
+<script>
+function preventLinkRedirect(event) {
+  const target = event.target;
+  // Prevent link redirect only if clicking on the grade button or popup content
+  if (target.closest('.bg-grade-a') || target.closest('.popup-modal')) {
+    event.preventDefault();
+  }
+}
+
+function openPopup(event, button) {
+  event.preventDefault();
+  const card = button.closest('a'); // Find the card container
+  const popup = card.querySelector('.popup-modal'); // Find the popup within the card
+  popup.classList.remove('hidden'); // Show the popup
+}
+
+document.addEventListener('click', (event) => {
+  if (event.target.matches('.close-popup')) {
+    const popup = event.target.closest('.popup-modal'); // Find the closest popup
+    popup.classList.add('hidden'); // Hide the popup
+    event.preventDefault(); // Prevent default link behavior
+  }
+});
+
+</script>
+
+<script>
+  // Tab functionality
+  document.querySelectorAll('.tabs button').forEach((tab, index) => {
+    tab.addEventListener('click', () => {
+      // Switch active tab
+      document.querySelectorAll('.tabs button').forEach(t => t.classList.remove('tab-active', 'bg-gray-800', 'text-white'));
+      tab.classList.add('tab-active', 'bg-gray-800', 'text-white');
+
+      // Switch content
+      document.querySelectorAll('.tab-content > div').forEach(content => content.classList.add('hidden'));
+      document.querySelectorAll('.tab-content > div')[index].classList.remove('hidden');
+    });
+  });
+</script>
+
+<script>
+  // Tab Switching Logic
+  document.addEventListener('DOMContentLoaded', () => {
+    const walletsTab = document.querySelector('.wallets-tab');
+    const coinsTab = document.querySelector('.coins-tab');
+    const walletsContent = document.getElementById('wallets-content');
+    const coinsContent = document.getElementById('coins-content');
+
+    // Function to switch tabs
+    function switchTab(activeTab, inactiveTab, activeContent, inactiveContent) {
+      // Add active styles to the active tab
+      activeTab.classList.add('text-white', 'border-blue-500', 'border-b-2');
+      activeTab.classList.remove('text-gray-400');
+      
+      // Remove active styles from the inactive tab
+      inactiveTab.classList.remove('text-white', 'border-blue-500', 'border-b-2');
+      inactiveTab.classList.add('text-gray-400');
+
+      // Show the active content and hide the inactive content
+      activeContent.classList.remove('hidden');
+      inactiveContent.classList.add('hidden');
+    }
+
+    // Initialize with Wallets tab active
+    switchTab(walletsTab, coinsTab, walletsContent, coinsContent);
+
+    walletsTab.addEventListener('click', () => {
+      switchTab(walletsTab, coinsTab, walletsContent, coinsContent);
+    });
+
+    coinsTab.addEventListener('click', () => {
+      switchTab(coinsTab, walletsTab, coinsContent, walletsContent);
+    });
+  });
+</script>
+
+
+
+  </body>
+</html>
