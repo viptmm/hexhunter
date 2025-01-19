@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HexHunter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="assets/dist/style.css" rel="stylesheet">
+    <link href="assets/style.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&family=REM:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+  </head>
+  <body class="bg-page-bg text-white">
+
+   <!-- Blue light circle -->
+   <div class="absolute -top-40 inset-x-1/2 w-2/3 h-[250px] bg-blue-500/20 blur-3xl rounded-full transform -translate-x-1/2"></div>
+    <!-- Header Section -->
+    <header class="p-4 mx-2 relative">
+      <div class="mx-auto flex justify-between items-center">
+        <!-- Logo -->
+        <div class="flex items-center z-50">
+          <svg class="h-8 w-8 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM10 2a6 6 0 1 1 0 12A6 6 0 0 1 10 2z" clip-rule="evenodd" />
+          </svg>
+          <span class="ml-2 font-bold text-lg">HexHunter</span>
+        </div>
+ <!-- Search Box -->
+ <div class="fixed lg:absolute bottom-0 left-0 w-full bg-dark-1 lg:bg-transparent  z-50">
+  <!-- Search Container -->
+  <div id="search-container " class="flex flex-col items-center w-full lg:w-2/4 mx-auto  transition-all duration-500 z-100 ">
+    <!-- Search Box -->
+    <div class="lg:mb-[-6px] my-4 flex items-center bg-dark-2 rounded-full h-[60px] px-4 lg:px-6 w-[95%] md:w-[75%] lg:w-[80%]  relative border border-white/10 backdrop-blur-md hover:backdrop-blur-lg hover:border-white/30 transition duration-500">
+      <!-- Search Icon -->
+      <div class="svg-icon mx-1 lg:mx-4 w-8 h-8 text-gray-500" data-icon-name="search-icon"></div>
+      <!-- Search Input -->
+      <input id="search-input" type="text" placeholder="Search solana wallets or coin addresses"
+  class="flex-grow bg-transparent outline-none text-white placeholder-text1 text-[18px] lg:text-[20px] font-light "
+  onfocus="showRecentSearches(); this.placeholder=''" onblur="hideRecentSearches(); this.placeholder='Search solana wallets or coin addresses'" />
+  <div class="hidden lg:flex  items-right  ">
+    <div class="svg-icon w-5 h-5 text-dark-8 mr-2" data-icon-name="solana-icon"></div>
+</div>
+    </div>
+    <!-- Recent Searches -->
+    <div id="recent-searches" class="hidden relative lg:absolute lg:top-[100%] rounded-lg shadow-lg w-[95%] lg:w-2/4 max-h-[300px] overflow-auto p-4 mt-2 lg:mt-2 z-10 bg-dark-1 ">
+      <!-- Title -->
+      <div class="text-gray-500 text-xs font-semibold mb-2">Recent Searches</div>
+      <!-- Wallet Search Item -->
+      <div class="flex items-center gap-4 p-2 hover:bg-dark-3 rounded-md cursor-pointer transition-all duration-1000">
+        <div class="w-6 h-6 bg-gray-500 rounded-sm flex items-center justify-center">
+          <div class="svg-icon w-4 h-4 text-white" data-icon-name="wallet-icon"></div>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-white text-sm font-medium">0xA1B2C3D4E5...</span>
+          <span class="text-gray-400 text-xs">2 min ago</span>
+        </div>
+      </div>
+      <!-- Coin Search Item -->
+      <div class="flex items-center gap-4 p-2 hover:bg-dark-3 transition-all duration-1000 cursor-pointer">
+        <img src="https://static.coinstats.app/coins/pudgy-penguinshqw.png" alt="Coin Avatar" class="w-6 h-6 rounded-sm">
+        <div class="flex flex-col">
+          <span class="text-white text-sm font-medium">Ethereum (ETH)</span>
+          <span class="text-gray-400 text-xs">5 hours ago</span>
+        </div>
+      </div>
+      <!-- Wallet Search Item -->
+      <div class="flex items-center gap-4 p-2 hover:bg-dark-3 transition-all duration-1000 rounded-md cursor-pointer">
+        <div class="w-6 h-6 bg-gray-500 rounded-sm flex items-center justify-center">
+          <div class="svg-icon w-4 h-4 text-white" data-icon-name="wallet-icon"></div>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-white text-sm font-medium">0xA1B2C3D4E5...</span>
+          <span class="text-gray-400 text-xs">2 min ago</span>
+        </div>
+      </div>
+      <!-- Close Icon (Mobile Only) -->
+      <div  id="close-recent-searches"  class="  bottom-0 left-0 w-full  p-2 flex justify-center">
+      <button class="text-gray-400 hover:bg-dark-3 transition-all duration-1000 rounded-md border-2 border-dark-3 flex items-center justify-center w-full h-8" onclick="hideRecentSearches()">
+        <div class="svg-icon w-6 h-6 text-gray-400" data-icon-name="x-icon"></div>
+      </button>
+      </div>
+    </div>
+  </div>
+  
+</div>
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex space-x-6 ">
+          <a href="#" class="hover:text-gray-300">Home</a>
+          <a href="#" class="hover:text-gray-300">About</a>
+          <a href="#" class="hover:text-gray-300">Services</a>
+          <a href="#" class="hover:text-gray-300">Contact</a>
+        </nav>
+
+        <!-- Mobile Hamburger Menu -->
+        <button id="hamburger-btn" class="md:hidden text-white focus:outline-none relative  fixed top-0 right-0 z-50">
+          <!-- Menu Icon -->
+          <div id="menu-icon" class="svg-icon h-8 w-8" data-icon-name="menu-icon"></div>
+          <!-- Close Icon -->
+          <div id="close-icon" class="svg-icon h-8 w-8 hidden" data-icon-name="x-icon"></div>
+        </button>
+        
+      </div>
+    </header>
+
+    <!-- Mobile Navigation Menu -->
+    <div id="mobile-nav" class="md:hidden fixed top-0 left-0 w-full h-full bg-gray-900 text-white flex flex-col items-start pt-20 transition-all duration-500 transform -translate-x-full z-40">
+      <nav class="w-full  text-left px-5">
+        <a href="#" class="block py-3 border-b border-line border-dark-4 hover:text-gray-300">Home</a>
+        <a href="#" class="block py-3 border-b border-line border-dark-4 hover:text-gray-300">About</a>
+        <a href="#" class="block py-3 border-b border-line border-dark-4 hover:text-gray-300">Services</a>
+        <a href="#" class="block py-3 border-b border-line border-dark-4 hover:text-gray-300">Contact</a>
+      </nav>
+    </div>
+
+ 
+
+
+    <!-- Main Content -->
+    <main class="mx-auto p-4 my-2 lg:my-20">
+      <div class="container mx-auto">
+        
+        <div class="flex flex-col items-center text-center my-4">
+          <div class="flex items-center justify-center space-x-2 mb-2">
+            <div class="flex items-center justify-center bg-dark-4 h-6 w-6 rounded-sm">
+              <div class="svg-icon w-4 h-4 text-white" data-icon-name="wallet-icon"></div>
+            </div>
+            <h2 class="text-xs lg:text-sm font-light text-gray-300">Wallet Address</h2>
+          </div>
+        
+          <!-- Wallet Address with copy functionality -->
+          <div class="relative group" id="copy-container">
+            <div class="flex items-center space-x-2 mt-2 cursor-pointer">
+              <span id="wallet-address" class="text-xl md:text-xl lg:text-3xl font-light md:font-medium text-white mx-2 break-words break-all">Cbg9fJWMLvC5fp9eMhqaSKtiJ5jEaraTxqjYYfvcCVBL </span>
+              <div id="copy-icon" class="svg-icon w-8 h-8 text-gray-500 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity" data-icon-name="copy-icon"></div>
+            </div>
+            <div id="tooltip" class="absolute -top-10 left-1/2 transform -translate-x-1/2 hidden bg-gray-800 text-white text-xs font-medium px-3 py-1 rounded shadow-md"> Copied</div>
+          </div>
+        </div>
+
+
+
+  <!-- Grade Box -->
+  <a href="#breakdown" class="bg-grade-a1 flex items-center mx-auto h-12 md:h-14 lg:w-2/4 rounded-sm md:my-6 ">
+    <div class="bg-grade-a h-12 md:h-14 w-12 md:w-14 flex items-center justify-center rounded">
+      <span class="text-grade-a1 text-xl md:text-2xl font-bold">A+</span>
+    </div>
+    <!-- Low Risk Text centered -->
+    <span class="text-grade-a1 text-lg font-medium flex-1 text-center">Low Risk</span>
+  </a>
+  
+<p class="my-4 font-xs  text-dark-8 text-center text-[12px] md:text-sm">A+ grade its the best score, generally safe, based on historical transaction patterns and consistency.</p>
+
+
+
+
+
+<section id="overview" class="pt-6 md:pt-12 pb-4  text-white w-full lg:w-3/4 mx-auto">
+  <div class="container mx-auto ">
+    <h2 class=" hidden text-2xl  text-center mb-4">Overview</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+      <!-- Card 1 -->
+      <div class="px-4 py-6 text-center relative  border-2 border-dark-3 rounded-lg">
+        <p class="text-gray-400 mb-1">Wallet Age</p>
+        <h3 class="text-2xl md:text-3xl font-semibold mb-3 flex items-center justify-center">
+          <span class="text-grade-a1">< 1 Year</span>
+          <div class="group relative inline-block" onclick="this.classList.toggle('active')">
+            <div class="svg-icon w-4 h-4 md:w-5 md:h-5 items-center text-white ml-3 cursor-pointer" data-icon-name="info-icon"></div>
+            <div class="tooltip-content absolute md:w-80 md:left-1/2 md:-translate-x-1/2 md:-top-16 bg-dark-2 text-sm text-gray-300 rounded-md p-4 shadow-lg z-50 opacity-0 invisible transition-opacity duration-300 md:group-hover:opacity-100 md:group-hover:visible group-[.active]:opacity-100 group-[.active]:visible md:group-[.active]:opacity-0 md:group-[.active]:invisible">
+              <p>Created: January 10, 2024<span class="text-dark-8"> (365 days ago)</span></p>
+            </div>
+          </div>
+        </h3>
+        <p class="font-light">38% older than the average</p>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="px-4 py-6 text-center relative  border-2 border-dark-3 rounded-lg">
+        <p class="text-gray-400 mb-1">Balance: 48.55 SOL</p>
+        <h3 class="text-2xl md:text-3xl font-semibold mb-3 flex items-center justify-center">
+          <span>$250K</span>
+          <div class="group relative inline-block" onclick="this.classList.toggle('active')">
+            <div class="svg-icon w-4 h-4 md:w-5 md:h-5 items-center text-white ml-3 cursor-pointer" data-icon-name="info-icon"></div>
+            <div class="tooltip-content absolute md:w-80 md:left-1/2 md:-translate-x-1/2 md:-top-16 bg-dark-2 text-sm text-gray-300 rounded-md p-4 shadow-lg z-50 opacity-0 invisible transition-opacity duration-300 md:group-hover:opacity-100 md:group-hover:visible group-[.active]:opacity-100 group-[.active]:visible md:group-[.active]:opacity-0 md:group-[.active]:invisible">
+              <table class="text-left w-full text-gray-300">
+                <thead>
+                  <tr>
+                    <th class="pr-2">Token</th>
+                    <th class="pr-2">Amount</th>
+                    <th>USD Worth</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>SOL</td>
+                    <td>2.345</td>
+                    <td>$48.75</td>
+                  </tr>
+                  <tr>
+                    <td>MemeX</td>
+                    <td>500,000</td>
+                    <td>$25.00</td>
+                  </tr>
+                  <tr>
+                    <td>Others</td>
+                    <td>N/A</td>
+                    <td>$1.50</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </h3>
+        <p class="font-light">+ $2000 in 3 other tokens</p>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="px-4 py-6 text-center relative border-2 border-dark-3 rounded-lg">
+        <p class="text-gray-400 mb-1">Activity Level</p>
+        <h3 class="text-2xl md:text-3xl font-semibold mb-3 flex items-center justify-center">
+          <span class="text-grade-a1">Moderate</span>
+          <div class="group relative inline-block" onclick="this.classList.toggle('active')">
+            <div class="svg-icon w-4 h-4 md:w-5 md:h-5 items-center text-white ml-3 cursor-pointer" data-icon-name="info-icon"></div>
+            <div class="tooltip-content absolute md:w-80 md:left-1/2 md:-translate-x-1/2 md:-top-16 bg-dark-2 text-sm text-gray-300 rounded-md p-4 shadow-lg z-50 opacity-0 invisible transition-opacity duration-300 md:group-hover:opacity-100 md:group-hover:visible group-[.active]:opacity-100 group-[.active]:visible md:group-[.active]:opacity-0 md:group-[.active]:invisible">
+              <p>Average per week: 20 SOL</p>
+            </div>
+          </div>
+        </h3>
+        <p class="font-light">20 Transactions/Week</p>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="px-4 py-6 text-center relative border-2 border-dark-3 rounded-lg">
+        <p class="text-gray-400 mb-1">Volume: 534.41 SOL</p>
+        <h3 class="text-2xl md:text-3xl font-semibold mb-3 flex items-center justify-center">
+          <span>99.5K TXS</span>
+          <div class="group relative inline-block" onclick="this.classList.toggle('active')">
+            <div class="svg-icon w-4 h-4 md:w-5 md:h-5 items-center text-white ml-3 cursor-pointer" data-icon-name="info-icon"></div>
+            <div class="tooltip-content absolute md:w-80 md:left-1/2 md:-translate-x-1/2 md:-top-16 bg-dark-2 text-sm text-gray-300 rounded-md p-4 shadow-lg z-50 opacity-0 invisible transition-opacity duration-300 md:group-hover:opacity-100 md:group-hover:visible group-[.active]:opacity-100 group-[.active]:visible md:group-[.active]:opacity-0 md:group-[.active]:invisible">
+              <div class="flex flex-col">
+                <p class="mb-2">Total Transactions: 1,544</p>
+                <p class="mb-2">Sent 1,000 times</p>
+                <p>Received 544 times</p>
+              </div>
+            </div>
+          </div>
+        </h3>
+        <div class="flex items-center justify-center">
+          <div class="svg-icon text-grade-d w-5 h-5 min-w-[1.25rem] min-h-[1.25rem] mr-2" data-icon-name="alert-icon"></div>
+          <p class="text-grade-d">344 txs this week</p>
+        </div>
+        <p class="hidden font-light">Sent: 435.31 SOL | Received: 500.33 SOL</p>
+      </div>
+      
+
+    </div>
+  </div>
+</section>
+
+<!--Insights section-->
+<section class="lg:w-3/4 mx-auto md:text-xl" >
+
+        <!-- Largest Transaction Row -->
+        <div class="p-4 flex flex-col md:flex-row md:justify-between items-start md:items-center">
+            <h3 class="">Largest Transaction</h3>
+            <div class="flex" >
+              <div class="svg-icon w-5 h-5 mt-1 mr-1 text-grade-a1" data-icon-name="arrow-in-icon"></div> <p class=" mb-1 pr-2 text-grade-a1">Recevied<span class="text-white"> +10 SOL</span></p><div class="svg-icon w-5 h-5 mt-1 mr-2 " data-icon-name="solana-color-icon"></div><span class="text-dark-8">($10.000.00)</span>
+          </div>
+        </div>
+
+   <!-- Divider -->
+   <div class="border-b border-dark-3"></div>
+ <div class="">
+      <!-- Largest Profit Row -->
+      <div class="p-4 flex flex-col md:flex-row md:justify-between items-start md:items-center">
+          <h3 class="">Largest Profit</h3>
+          <div class="flex items-center gap-2">
+              <span class="text-grade-a1">+USD 5.000</span>
+              <span class=" text-dark-8">(22 May, 2024)</span>
+          </div>
+      </div>
+      <!-- Divider -->
+      <div class="border-b border-dark-3"></div>
+
+      <!-- Top Counterparty Row -->
+      <div class="p-4 flex flex-col md:flex-row md:justify-between items-start md:items-center">
+          <h3 class="">Profit Ratio </h3>
+          <p class="text-grade-f">-0.9% <span class="text-xl text-dark-8">(Last 100 TXS)</span></p>
+      </div>
+  </div>
+
+      <!-- Divider -->
+      <div class="border-b border-dark-3"></div>
+
+      <!-- Top Counterparty Row -->
+      <div class="p-4 flex flex-col md:flex-row md:justify-between items-start md:items-center">
+          <h3 class="">Top Counterparty </h3>
+          <p class="">Wallet 0x123...456 <span class="text-xl text-dark-8">(20 Transactions)</span></p>
+      </div>
+  
+</section>
+
+<section id="breakdown" class="w-full lg:w-3/4 mx-auto py-10 lg:py-20">
+  <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+      <!-- Single Points Section for both mobile and desktop -->
+      <div class="lg:col-span-1">
+          <details class="lg:open group" open>
+              <summary class="p-4 cursor-pointer bg-grade-a1 rounded-t-lg flex justify-between items-center">
+                  <div class="flex items-center gap-4">
+                      <div class="bg-grade-a1 h-12 md:h-14 w-12 md:w-14 flex items-center justify-center rounded">
+                          <span class="text-grade-a1 text-xl md:text-2xl font-bold">A+</span>
+                      </div>
+                      <div>
+                          <span class="text-sm text-dark-8 block font-light">Total Score</span>
+                          <span class="text-2xl font-bold">100 Points</span>
+                      </div>
+                  </div>
+                  <!-- Arrow icon - only visible on mobile -->
+                  <svg class="w-6 h-6 lg:hidden transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+              </summary>
+              <div class="border-2 border-dark-3 rounded-b-lg p-4 border-t-0">
+                  <h3 class="text-lg mb-4">Points Breakdown</h3>
+<!-- Inside the points breakdown list -->
+<ul class="space-y-4">
+  <!-- Positive Items -->
+  <li class="flex items-start">
+      <div class="svg-icon text-grade-a1 w-5 h-5 min-w-[1.25rem] min-h-[1.25rem] mr-3 mt-0.5" data-icon-name="checkmark-icon"></div>
+      <p>Wallet Age: <span class="text-grade-a1">+10 points</span></p>
+  </li>
+  <li class="flex items-start">
+      <div class="svg-icon text-grade-a1 w-5 h-5 min-w-[1.25rem] min-h-[1.25rem] mr-3 mt-0.5" data-icon-name="checkmark-icon"></div>
+      <p>Low Suspicious Activity: <span class="text-grade-a1">+20 points</span></p>
+  </li>
+
+  <!-- Negative Items -->
+  <li class="flex items-start">
+      <div class="svg-icon text-grade-f w-5 h-5 min-w-[1.25rem] min-h-[1.25rem] mr-3 mt-0.5" data-icon-name="alert-icon"></div>
+      <p>High Transaction Volume: <span class="text-grade-f">-5 points</span></p>
+  </li>
+  <li class="flex items-start">
+      <div class="svg-icon text-grade-f w-5 h-5 min-w-[1.25rem] min-h-[1.25rem] mr-3 mt-0.5" data-icon-name="alert-icon"></div>
+      <p>High Profit on Meme Coins: <span class="text-grade-f">-10 points</span></p>
+  </li>
+</ul>
+
+              </div>
+          </details>
+      </div>
+
+      <!-- Transactions Section -->
+      <div class="lg:col-span-3">
+          <h2 class="text-2xl text-center md:text-left font-bold mb-6">Transactions</h2>
+          
+          <!-- Tabs -->
+          <div class="text-center lg:text-left space-x-2 mb-6 border-b border-white/10">
+              <button class="text-white font-medium pb-2 border-b-2 border-blue-500 px-3 py-2">Latest</button>
+              <button class="text-gray-400 hover:text-white pb-2 py-2 px-3">Suspicious</button>
+              <button class="text-gray-400 hover:text-white pb-2 py-2 px-3">All TXS</button>
+          </div>
+
+   <!-- Transactions List -->
+<div class="">
+
+<div class="flex flex-col gap-x-4 -space-y-[1px]">
+  <!-- Received Transaction -->
+  <details class="group border border-dark-4 marker:content-[''] [&>summary]:list-none ">
+      <summary class="p-4 cursor-pointer hover:bg-dark-1 transition-colors duration-1000">
+          <div class="flex flex-wrap gap-x-4 ">
+              <!-- First Row Content (both mobile and desktop) -->
+              <div class="flex flex-wrap items-center md:gap-x-4 w-full">
+                  <!-- Transaction Type -->
+                  <div class="flex items-center md:gap-x-2  p-2 md:min-w-[120px]">
+                      <div class="svg-icon w-5 h-5 text-green-400" data-icon-name="arrow-in-icon"></div>
+                      <span class="text-green-400">Received</span>
+                  </div>
+
+                  <!-- Amount -->
+                  <div class="flex items-center gap-x-2  p-2 md:min-w-[220px]">
+                      <span class="font-medium whitespace-nowrap">+ 50 SOL</span>
+                      <div class="svg-icon w-5 h-5" data-icon-name="solana-icon"></div>
+                      <span class="hidden md:block text-gray-400">($33.02.00)</span>
+                  </div>
+
+                  <!-- From/To and Wallet -->
+                  <div class="flex items-center gap-x-2  p-2 flex-grow md:flex-grow-0">
+                      <span class="text-gray-400">from</span>
+                      <a href="#" class="hover:underline hover:text-dark-8">2x$332...X2b</a>
+                  </div>
+
+                  <!-- Timestamp -->
+                  <div class="ml-auto text-right  p-2">
+                      <span class="text-gray-400 text-sm whitespace-nowrap">10 days ago</span>
+                  </div>
+
+                  <!-- Caret -->
+                  <div class=" p-2">
+                      <svg class="w-4 h-4 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                      </svg>
+                  </div>
+              </div>
+          </div>
+      </summary>
+      <div class="px-4 pb-4 pt-2 bg-dark-2">
+        <h4 class="text-sm font-medium mb-2">Transaction Details</h4>
+        <div class="space-y-2 text-sm text-gray-400">
+            <p>Transaction Hash: 0x123...abc</p>
+            <p>Block: 12345678</p>
+            <p>Timestamp: 2024-01-22 14:30:45 UTC</p>
+        </div>
+    </div>
+  </details>
+
+  <!-- Sent Transaction -->
+  <details class="group border border-dark-4 marker:content-[''] [&>summary]:list-none">
+      <summary class="p-4 cursor-pointer hover:bg-dark-1 transition-colors duration-1000">
+          <div class="flex flex-wrap gap-x-4 ">
+              <!-- First Row Content (both mobile and desktop) -->
+              <div class="flex flex-wrap items-center md:gap-x-4 w-full">
+                  <!-- Transaction Type -->
+                  <div class="flex items-center md:gap-x-2  p-2 md:min-w-[120px]">
+                      <div class="svg-icon w-5 h-5 text-red-400" data-icon-name="arrow-out-icon"></div>
+                      <span class="text-red-400">Sent</span>
+                  </div>
+
+                  <!-- Amount -->
+                  <div class="flex items-center gap-x-2  p-2 md:min-w-[220px]">
+                      <span class="font-medium whitespace-nowrap">- 30 SOL</span>
+                      <div class=" svg-icon w-5 h-5" data-icon-name="solana-icon"></div>
+                      <span class="hidden md:block text-gray-400">($30.00)</span>
+                  </div>
+
+                  <!-- From/To and Wallet -->
+                  <div class="flex items-center gap-x-2  p-2 flex-grow md:flex-grow-0">
+                      <span class="text-gray-400">to</span>
+                      <a href="#" class="hover:underline hover:text-dark-8">8333x987...Y4c</a>
+                  </div>
+
+                  <!-- Timestamp -->
+                  <div class="ml-auto text-right  p-2">
+                      <span class="text-gray-400 text-sm whitespace-nowrap">5 days ago</span>
+                  </div>
+
+                  <!-- Caret -->
+                  <div class="p-2">
+                      <svg class="w-4 h-4 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                      </svg>
+                  </div>
+              </div>
+          </div>
+      </summary>
+      <div class="px-4 pb-4 pt-2 bg-dark-2">
+        <h4 class="text-sm font-medium mb-2">Transaction Details</h4>
+        <div class="space-y-2 text-sm text-gray-400">
+            <p>Transaction Hash: 0x123...abc</p>
+            <p>Block: 12345678</p>
+            <p>Timestamp: 2024-01-22 14:30:45 UTC</p>
+        </div>
+    </div>
+  </details>
+</div>
+
+
+  
+  </div>
+    <!-- Load More Button -->
+    <button class="w-full py-3 mt-4 text-white border-2 border-dark-3 rounded-lg hover:bg-dark-3 transition-colors">
+      Load More
+    </button>
+</section>
+
+
+
+
+
+        </div>
+      </div>
+
+
+      
+
+      
+      
+      
+    </div>
+    </main>
+
+    <script>
+      const hamburgerBtn = document.getElementById('hamburger-btn');
+      const menuIcon = document.getElementById('menu-icon');
+      const closeIcon = document.getElementById('close-icon');
+      const mobileNav = document.getElementById('mobile-nav');
+    
+      // Add an event listener to toggle the navigation visibility and icons
+      hamburgerBtn.addEventListener('click', () => {
+        // Toggle mobile nav visibility and translation
+        mobileNav.classList.toggle('-translate-x-full');
+        mobileNav.classList.toggle('translate-x-0');
+    
+        // Toggle between menu icon and close icon
+        menuIcon.classList.toggle('hidden');
+        closeIcon.classList.toggle('hidden');
+      });
+    
+      // Close the mobile nav when clicking outside the links
+      mobileNav.addEventListener('click', (e) => {
+        if (e.target !== e.currentTarget) return; // Click outside the links to close the nav
+        mobileNav.classList.add('-translate-x-full');
+        mobileNav.classList.remove('translate-x-0');
+        menuIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+      });
+    </script>
+    
+ <script>
+    // svg grab
+    document.addEventListener("DOMContentLoaded", () => {
+  const icons = document.querySelectorAll('.svg-icon');
+
+  icons.forEach(icon => {
+    const iconName = icon.getAttribute('data-icon-name');
+    const iconPath = `assets/icons/${iconName}.svg`;
+
+    fetch(iconPath)
+      .then(response => response.text())
+      .then(svgContent => {
+        // Inject the SVG content into the div
+        icon.innerHTML = svgContent;
+
+        // Select the injected SVG element
+        const svgElement = icon.querySelector('svg');
+
+        if (svgElement) {
+          // Remove width and height attributes from the SVG to respect TailwindCSS classes
+          svgElement.removeAttribute('width');
+          svgElement.removeAttribute('height');
+
+          // Ensure the SVG scales based on TailwindCSS classes
+          svgElement.setAttribute('width', '100%');
+          svgElement.setAttribute('height', '100%');
+          svgElement.setAttribute('viewBox', svgElement.getAttribute('viewBox') || '0 0 24 24');
+          svgElement.classList.add('w-full', 'h-full');
+        }
+
+        // Update color dynamically to use currentColor
+        const paths = icon.querySelectorAll('path, circle, rect, line, polyline, polygon');
+        paths.forEach(path => {
+          path.setAttribute('stroke', 'currentColor');
+          path.setAttribute('fill', 'none'); // Keep it as an outline
+        });
+      })
+      .catch(error => console.error(`Error loading icon: ${iconName}`, error));
+  });
+});
+
+</script>
+
+<script>
+  //recent searches dropdown
+  function showRecentSearches() {
+    const recentSearches = document.getElementById('recent-searches');
+    recentSearches.classList.remove('hidden'); // Show the recent searches
+  }
+  
+  function hideRecentSearches() {
+    const recentSearches = document.getElementById('recent-searches');
+    recentSearches.classList.add('hidden'); // Hide the recent searches
+  }
+  </script>
+  <script>
+    //click toggle long name tooltip on mobile
+    function toggleTooltip() {
+      const tooltip = document.getElementById('tooltip');
+      tooltip.classList.toggle('hidden');
+    }
+  </script>
+<script>
+function preventLinkRedirect(event) {
+  const target = event.target;
+  // Prevent link redirect only if clicking on the grade button or popup content
+  if (target.closest('.bg-grade-a') || target.closest('.popup-modal')) {
+    event.preventDefault();
+  }
+}
+
+function openPopup(event, button) {
+  event.preventDefault();
+  const card = button.closest('a'); // Find the card container
+  const popup = card.querySelector('.popup-modal'); // Find the popup within the card
+  popup.classList.remove('hidden'); // Show the popup
+}
+
+document.addEventListener('click', (event) => {
+  if (event.target.matches('.close-popup')) {
+    const popup = event.target.closest('.popup-modal'); // Find the closest popup
+    popup.classList.add('hidden'); // Hide the popup
+    event.preventDefault(); // Prevent default link behavior
+  }
+});
+
+</script>
+
+<script>
+  // Tab functionality
+  document.querySelectorAll('.tabs button').forEach((tab, index) => {
+    tab.addEventListener('click', () => {
+      // Switch active tab
+      document.querySelectorAll('.tabs button').forEach(t => t.classList.remove('tab-active', 'bg-gray-800', 'text-white'));
+      tab.classList.add('tab-active', 'bg-gray-800', 'text-white');
+
+      // Switch content
+      document.querySelectorAll('.tab-content > div').forEach(content => content.classList.add('hidden'));
+      document.querySelectorAll('.tab-content > div')[index].classList.remove('hidden');
+    });
+  });
+</script>
+
+<script>
+  // Tab Switching Logic
+  document.addEventListener('DOMContentLoaded', () => {
+    const walletsTab = document.querySelector('.wallets-tab');
+    const coinsTab = document.querySelector('.coins-tab');
+    const walletsContent = document.getElementById('wallets-content');
+    const coinsContent = document.getElementById('coins-content');
+
+    // Function to switch tabs
+    function switchTab(activeTab, inactiveTab, activeContent, inactiveContent) {
+      // Add active styles to the active tab
+      activeTab.classList.add('text-white', 'border-blue-500', 'border-b-2');
+      activeTab.classList.remove('text-gray-400');
+      
+      // Remove active styles from the inactive tab
+      inactiveTab.classList.remove('text-white', 'border-blue-500', 'border-b-2');
+      inactiveTab.classList.add('text-gray-400');
+
+      // Show the active content and hide the inactive content
+      activeContent.classList.remove('hidden');
+      inactiveContent.classList.add('hidden');
+    }
+
+    // Initialize with Wallets tab active
+    switchTab(walletsTab, coinsTab, walletsContent, coinsContent);
+
+    walletsTab.addEventListener('click', () => {
+      switchTab(walletsTab, coinsTab, walletsContent, coinsContent);
+    });
+
+    coinsTab.addEventListener('click', () => {
+      switchTab(coinsTab, walletsTab, coinsContent, walletsContent);
+    });
+  });
+</script>
+
+<script>
+  function copyAddress(event) {
+    event.preventDefault(); // Prevent default touch/click behavior
+
+    const walletAddressText = document.getElementById('wallet-address').innerText.trim();
+    const tooltip = document.getElementById('tooltip');
+
+    navigator.clipboard.writeText(walletAddressText).then(() => {
+      // Show "Copied" tooltip
+      tooltip.classList.remove('hidden');
+
+      // Hide tooltip after 2 seconds
+      setTimeout(() => {
+        tooltip.classList.add('hidden');
+      }, 2000);
+    }).catch(() => {
+      alert("Failed to copy. Please try again.");
+    });
+  }
+
+  const copyContainer = document.getElementById('copy-container');
+
+  // Add both click and touchstart listeners for compatibility
+  copyContainer.addEventListener('click', copyAddress);
+  copyContainer.addEventListener('touchstart', copyAddress);
+</script>
+
+
+  </body>
+</html>
