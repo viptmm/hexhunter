@@ -29,12 +29,12 @@ module.exports = {
       },
 
       backgroundColor: {
-        'grade-a1': 'rgba(33, 197, 94, 0.10)',  // Transparent Green (10% opacity)
-        'grade-a': 'rgba(66, 220, 27, 0.10)',   // Transparent Light Green (10% opacity)
-        'grade-b': 'rgba(156, 232, 48, 0.10)',   // Transparent Yellow Green (10% opacity)
-        'grade-c': 'rgba(235, 204, 26, 0.10)',   // Transparent Yellow (10% opacity)
-        'grade-d': 'rgba(253, 89, 30, 0.10)',    // Transparent Orange (10% opacity)
-        'grade-f': 'rgba(255, 28, 109, 0.10)',   // Transparent Pink (10% opacity)
+        'grade-a1': 'rgba(33, 197, 94, 0.15)',  // Transparent Green (10% opacity)
+        'grade-a': 'rgba(66, 220, 27, 0.15)',   // Transparent Light Green (10% opacity)
+        'grade-b': 'rgba(156, 232, 48, 0.15)',   // Transparent Yellow Green (10% opacity)
+        'grade-c': 'rgba(235, 204, 26, 0.15)',   // Transparent Yellow (10% opacity)
+        'grade-d': 'rgba(253, 89, 30, 0.15)',    // Transparent Orange (10% opacity)
+        'grade-f': 'rgba(255, 28, 109, 0.15)',   // Transparent Pink (10% opacity)
       },
       
       fontFamily: {

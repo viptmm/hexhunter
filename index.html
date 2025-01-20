@@ -59,8 +59,8 @@
     <!-- Main Content -->
     <main class="mx-auto p-4 my-10 lg:my-20">
       <div class="container mx-auto">
-      <h1 class="my-2 text-center text-4xl lg:text-5xl font-extrabold bg-gradient-to-r from-purple-500 via-blue-500 to-teal-400 text-transparent bg-clip-text">Trace Solana Wallets & Tokens</h1>
-      <h2 class="my-2 text-center text-xl lg:text-2xl font-light">Wallet and token info anyone can understand.</h2>
+      <h1 class="my-2 text-center text-4xl lg:text-5xl font-extrabold bg-gradient-to-r from-purple-500 via-blue-500 to-teal-400 text-transparent bg-clip-text">Trace Solana Wallets</h1>
+      <h2 class="my-2 text-center text-xl lg:text-2xl font-light">Wallet info anyone can understand.</h2>
  <!-- Search Box -->
  <div class="fixed lg:relative bottom-0 left-0 w-full bg-dark-1 lg:bg-transparent lg:my-10 z-50">
   <!-- Search Container -->
@@ -72,7 +72,7 @@
       <!-- Search Input -->
       <input id="search-input" type="text" placeholder="Search solana wallets or coin addresses"
   class="flex-grow bg-transparent outline-none text-white placeholder-text1 text-[18px] lg:text-[22px] font-light"
-  onfocus="showRecentSearches(); this.placeholder=''" onblur="hideRecentSearches(); this.placeholder='Search solana wallets or coin addresses'" />
+  onfocus="showRecentSearches(); this.placeholder=''" onblur="hideRecentSearches(); this.placeholder='Search solana wallet addresses'" />
     </div>
     <!-- Recent Searches -->
     <div id="recent-searches" class=" hidden lg:top-[100%] rounded-lg shadow-lg w-[95%] lg:w-full max-h-[300px] overflow-auto p-4 mt-2 lg:mt-2 z-10 bg-dark-1 relative">
@@ -977,7 +977,26 @@
       
     </div>
     </main>
-
+    <footer class="bg-gray-900 pt-8 pb-6 mt-12 border-t border-gray-800">
+      <div class="max-w-7xl mx-auto px-4">
+          <!-- X Icon Container -->
+          <div class="flex justify-center mb-6">
+              <div class="svg-icon h-8 w-8 text-gray-400" data-icon-name="x-icon"></div>
+          </div>
+          
+          <!-- Disclaimer Text -->
+          <div class="text-center px-4">
+              <p class="text-gray-400 text-xs leading-relaxed mb-4 max-w-4xl mx-auto">
+                  IMPORTANT DISCLAIMER: The information provided on this website is for general informational purposes only. All data and visualizations are provided "as is" without any representations or warranties of any kind. This is not financial, investment, legal, or tax advice. The information presented may be incomplete or inaccurate. We do not accept any liability for any losses or damages arising from the use of this information. Users should conduct their own research and consult with qualified professionals before making any financial decisions.
+              </p>
+              
+              <p class="text-gray-500 text-[11px] mt-4">
+                  © 2024 [Company Name]. All rights reserved.
+              </p>
+          </div>
+      </div>
+  </footer>
+  
     <script>
       const hamburgerBtn = document.getElementById('hamburger-btn');
       const menuIcon = document.getElementById('menu-icon');
